@@ -1,29 +1,26 @@
+import java.util.*;
+
 class Solution {
     public List<List<Integer>> generate(int numRows) {
-        if (numRows <= 0) {
-            return Collections.emptyList();
-        }
 
-        List<List<Integer>> triangle = new ArrayList<>();
-        List<Integer> firstRow = new ArrayList<>();
+        List<List<Integer>> result = new ArrayList<>();
 
-        firstRow.add(1);
-        triangle.add(firstRow);
+        for (int i = 0; i < numRows; i++) {
 
-        for (int i = 1; i < numRows; i++) {
-            List<Integer> prevRow = triangle.get(i - 1);
-            List<Integer> newRow = new ArrayList<>();
+            List<Integer> row = new ArrayList<>();
 
-            newRow.add(1);
-
-            for (int j = 1; j < i; j++) {
-                newRow.add(prevRow.get(j - 1) + prevRow.get(j));
+            for (int j = 0; j <= i; j++) {
+                if (j == 0 || j == i) {
+                    row.add(1);
+                } else {
+                    row.add(result.get(i - 1).get(j - 1)
+                            + result.get(i - 1).get(j));
+                }
             }
 
-            newRow.add(1);
-            triangle.add(newRow);
+            result.add(row);
         }
 
-        return triangle;
+        return result;
     }
 }
